@@ -8,6 +8,7 @@ import org.owasp.html.Sanitizers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -59,6 +61,12 @@ public class GroupingsRestController {
     @Value("${groupings.api.opt_out}")
     private String OPT_OUT;
 
+    @Value("${groupings.api.check}")
+    private String CREDENTIAL_CHECK_USER;
+
+    @Autowired
+    private Environment env;
+
     @Autowired
     HttpRequestService httpRequestService;
 
@@ -69,15 +77,21 @@ public class GroupingsRestController {
 
         // For sanitation
         policy = Sanitizers.FORMATTING.and(Sanitizers.LINKS);
+
+        if(!Arrays.asList(env.getActiveProfiles()).contains("localTest")) {
+            Assert.isTrue(isBackendUp().getStatusCode().is2xxSuccessful(),
+                    "Please start the UH Groupings API first.");
+
+            Assert.isTrue(credentialCheck().getStatusCode().toString().startsWith("403"),
+                    "Possible credential error. Please check the overrides file.");
+        }
     }
 
     @RequestMapping(value = "/",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> hello() {
-        return ResponseEntity
-                .ok()
-                .body("University of Hawaii Groupings API");
+        return ResponseEntity.ok("University of Hawaii UHGroupings");
     }
 
     /**
@@ -669,6 +683,10 @@ public class GroupingsRestController {
         //                .body(groupingFactoryService.addGrouping(username, grouping, basis, include, exclude, owners));
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    // Helper Functions
+    //////////////////////////////////////////////////////////////////////
+
     // Helper method to change preferenes
     private ResponseEntity changePreference(String grouping, String username, String preference, Boolean isOn) {
 
@@ -688,5 +706,18 @@ public class GroupingsRestController {
         }
         String uri = String.format(API_2_1_BASE + "/groupings/%s/syncDests/%s/%s", grouping, syncDest, ending);
         return httpRequestService.makeApiRequest(username, uri, HttpMethod.PUT);
+    }
+
+    private ResponseEntity credentialCheck() {
+
+        String uri = API_2_1_BASE + "/adminsGroupings";
+
+        return httpRequestService.makeApiRequest(CREDENTIAL_CHECK_USER, uri, HttpMethod.GET);
+    }
+
+    private  ResponseEntity isBackendUp() {
+        String uri = API_2_1_BASE + "/";
+
+        return httpRequestService.makeApiRequest(CREDENTIAL_CHECK_USER, uri, HttpMethod.GET);
     }
 }
