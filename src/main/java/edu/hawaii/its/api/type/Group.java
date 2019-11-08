@@ -63,7 +63,7 @@ public class Group implements Comparable<Group> {
     public List<String> getUuids() {
         List<String> uuids = new ArrayList<>();
         for (Person person : members) {
-            uuids.add(person.getUuid());
+            uuids.add(person.getUhuuid());
         }
         return uuids;
     }
