@@ -13,6 +13,10 @@
         $scope.adminsList = [];
         $scope.pagedItemsAdmins = [];
         $scope.currentPageAdmins = 0;
+        $scope.peopleList = [];
+        $scope.pagedItemsPeople = [];
+        $scope.currentPagePeople = 0;
+        //add variable
 
         // Allow this controller to use functions from the General Controller
         angular.extend(this, $controller("GeneralJsController", { $scope: $scope }));
@@ -48,6 +52,22 @@
                     $scope.createRoleErrorModal();
                 }
             });
+
+            /*todo:copy code*/
+            $scope.loading = true;
+            groupingsService.getMembershipAssignmentForUser(function (res) {
+                /*$scope.membershipsList = _.sortBy(res.groupingsIn, "name");
+                $scope.filter($scope.membershipsList, "pagedItemsMemberships", "currentPageMemberships", $scope.membersQuery, true);*/
+
+                /*todo:fix of real data*/
+                $scope.peopleList = _.sortBy(res.groupingsIn, "name");
+                $scope.filter($scope.peopleList, "pagedItemsPeople", "currentPagePeople", $scope.peopleQuery, true);
+
+                $scope.loading = false;
+            }, function (res) {
+                dataProvider.handleException({exceptionMessage: JSON.stringify(res, null, 4)}, "feedback/error", "feedback");
+            },"kahlin");//scope.variable
+
         };
 
         $scope.displayAdmins = function () {
@@ -55,7 +75,18 @@
             $scope.filter($scope.adminsList, "pagedItemsAdmins", "currentPageAdmins", $scope.adminsQuery, true);
             $scope.pagedItemsGroupings = $scope.groupToPages($scope.groupingsList);
             $scope.showGrouping = false;
+            console.log("display admin");
         };
+
+        /*todo:people copy*/
+        $scope.displayPeople = function () {
+            $scope.resetGroupingInformation();
+            $scope.filter($scope.peopleList, "pagedItemsPeople", "currentPagePeople", $scope.peopleQuery, true);
+            $scope.pagedItemsGroupings = $scope.groupToPages($scope.groupingsList);
+            $scope.showGrouping = false;
+            console.log("display people");
+        };
+
 
         /**
          * Adds a user to the admin list.

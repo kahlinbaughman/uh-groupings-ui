@@ -20,6 +20,10 @@
                 <a href="#manage-admins" data-toggle="tab" class="nav-link" role="tab">
                     Manage Admins
                 </a>
+            <li class="nav-item" role="presentation" ng-click="displayPeople()">
+                <a href="#manage-people" data-toggle="tab" class="nav-link" role="tab">
+                    Manage People
+                </a>
             </li>
         </ul>
     </div>
@@ -52,7 +56,7 @@
                 <div class="tab-pane fade" id="manage-admins" role="tab">
                     <div class="row m-auto pt-3 pb-3">
                         <div class="col-lg-9 col-md-8 col-12 p-0">
-                            <h2 class="card-title mt-md-1 mt-0 mb-1">Designate Admins</h2>
+                            <h2 class="card-title mt-md-1 mt-0 mb-1">Designated Admins</h2>
                         </div>
                         <div class="col-lg-3 col-md-4 col-12 p-0">
                             <input class="form-control" placeholder="Filter Admins..." type="search"
@@ -110,6 +114,7 @@
                             </tbody>
                         </table>
                     </div>
+
                     <div class="row">
                         <div class="col-lg-7">
                             <form ng-submit="addAdmin()">
@@ -128,6 +133,69 @@
                         </div>
                     </div>
                 </div>
+                <!-- Manage People -->
+                <div class="tab-pane fade" id="manage-people" role="tab">
+                    <div class="row m-auto pt-3 pb-3">
+                        <div class="col-lg-9 col-md-8 col-12 p-0">
+                            <h2 class="card-title mt-md-1 mt-0 mb-1">people</h2>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12 p-0">
+                            <input class="form-control" placeholder="Filter people..." type="text"
+                                   title="Filter people"
+                                   ng-model="peopleQuery"
+                                   ng-change="filter(peopleList, 'pagedItemsPeople', 'currentPagePeople', peopleQuery, true)"/>
+                        </div>
+                    </div>
+                    <div class="table-responsive-sm">
+                        <table class="table manage-admins table-striped table-hover table-md" aria-live="assertive">
+                            <thead>
+                            <tr>
+                                <th ng-click="sortBy('peopleList', 'pagedItemsPeople', 'name')" class="clickable">
+                                    Person Name
+                                    <i class="fa sort-icon"
+                                       ng-show="columnSort.peopleList.property === 'name' || !columnSort.peopleList"
+                                       ng-class="{ reverse: columnSort.peopleList.reverse }"></i>
+                                <th ng-click="sortBy('peopleList', 'pagedItemsPeople', 'uuid')" class="clickable">
+                                    UH Number
+                                    <i class="fa sort-icon" ng-show="columnSort.peopleList.property === 'uuid'"
+                                       ng-class="{ reverse: columnSort.peopleList.reverse }"></i>
+                                </th>
+                                <th ng-click="sortBy('peopleList', 'pagedItemsPeople', 'username')"
+                                    class="clickable">
+                                    UH Username
+                                    <i class="fa sort-icon" ng-show="columnSort.peopleList.property === 'username'"
+                                       ng-class="{ reverse: columnSort.peopleList.reverse }"></i>
+                                </th>
+                                <th class="delete" scope="col">
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="table table-borderless">
+                            <tr ng-repeat="l in pagedItemsPeople[currentPagePeople]" class="table table-sm"
+                            >
+                                <td class="p-10" tabindex="0">
+                                    {{l.name}}
+                                </td>
+                                <td class="p-10" tabindex="0">
+                                    {{l.uuid}}
+                                </td>
+                                <td class="p-10" tabindex="0">
+                                    {{l.username}}
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div th:replace="fragments/pagination :: pagination(currentPage='currentPageAdmins', pagedItems='pagedItemsAdmins')"></div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
         <div ng-show="showGrouping">
