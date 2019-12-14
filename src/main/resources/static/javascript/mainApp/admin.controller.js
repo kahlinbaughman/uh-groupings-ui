@@ -16,6 +16,7 @@
         $scope.peopleList = [];
         $scope.pagedItemsPeople = [];
         $scope.currentPagePeople = 0;
+        $scope.people = "";
         //add variable
 
         // Allow this controller to use functions from the General Controller
@@ -53,22 +54,41 @@
                 }
             });
 
-            /*todo:copy code*/
-            $scope.loading = true;
+            /!*todo:copy code*!/;
+           /* $scope.loading = true;
             groupingsService.getMembershipAssignmentForUser(function (res) {
-                /*$scope.membershipsList = _.sortBy(res.groupingsIn, "name");
-                $scope.filter($scope.membershipsList, "pagedItemsMemberships", "currentPageMemberships", $scope.membersQuery, true);*/
+                /!*$scope.membershipsList = _.sortBy(res.groupingsIn, "name");
+                $scope.filter($scope.membershipsList, "pagedItemsMemberships", "currentPageMemberships", $scope.membersQuery, true);*!/
 
-                /*todo:fix of real data*/
+                /!*todo:fix of real data*!/
                 $scope.peopleList = _.sortBy(res.groupingsIn, "name");
                 $scope.filter($scope.peopleList, "pagedItemsPeople", "currentPagePeople", $scope.peopleQuery, true);
 
                 $scope.loading = false;
             }, function (res) {
-                dataProvider.handleException({exceptionMessage: JSON.stringify(res, null, 4)}, "feedback/error", "feedback");
-            },"kahlin");//scope.variable
+                dataProvider.handleException({ exceptionMessage: JSON.stringify(res, null, 4) }, "feedback/error", "feedback");
+            }, "kahlin");//scope.variable*/
 
         };
+
+
+        $scope.searchPeople = function () {
+            $scope.loading = true;
+            groupingsService.getMembershipAssignmentForUser(function (res) {
+                /*$scope.membershipsList = _.sortBy(res.groupingsIn, "name");;
+                $scope.filter($scope.membershipsList, "pagedItemsMemberships", "currentPageMemberships", $scope.membersQuery, true);
+
+                /!*todo:fix of real data*/
+                ;
+                $scope.peopleList = _.sortBy(res.groupingsIn, "name");
+                $scope.filter($scope.peopleList, "pagedItemsPeople", "currentPagePeople", $scope.peopleQuery, true);
+
+                $scope.loading = false;
+            }, function (res) {
+                dataProvider.handleException({ exceptionMessage: JSON.stringify(res, null, 4) }, "feedback/error", "feedback");
+            }, $scope.people);//scope.variable
+        };
+
 
         $scope.displayAdmins = function () {
             $scope.resetGroupingInformation();
@@ -109,6 +129,13 @@
                 }
             });
         };
+
+
+        //todo:people assignment
+        /* $scope.searchPeople = function () {
+             console.log($scope.people);
+         };*/
+
 
         /**
          * Removes an admin from the admin list. There must be at least one admin remaining.

@@ -135,6 +135,22 @@
                 </div>
                 <!-- Manage People -->
                 <div class="tab-pane fade" id="manage-people" role="tab">
+
+                    <div class="row">
+                        <!--<div class="col-lg-7">-->
+                            <form ng-submit="searchPeople()">
+                                <div class="input-group">
+                                    <input name="Search People" class="form-control" type="text"
+                                           title="Enter UH Username"
+                                           placeholder="UH Username" ng-model="people"/>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                        <!--</div>-->
+                    </div>
+
                     <div class="row m-auto pt-3 pb-3">
                         <div class="col-lg-9 col-md-8 col-12 p-0">
                             <h2 class="card-title mt-md-1 mt-0 mb-1">people</h2>
