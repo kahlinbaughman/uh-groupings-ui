@@ -72,7 +72,7 @@
         };
 
 
-        $scope.searchPeople = function () {
+        $scope.searchForMemberships = function () {
             $scope.loading = true;
             groupingsService.getMembershipAssignmentForUser(function (res) {
                 /*$scope.membershipsList = _.sortBy(res.groupingsIn, "name");;
