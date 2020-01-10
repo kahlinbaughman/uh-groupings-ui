@@ -79,7 +79,7 @@
                 $scope.filter($scope.membershipsList, "pagedItemsMemberships", "currentPageMemberships", $scope.membersQuery, true);
 
                 /!*todo:fix of real data*/
-                ;
+
                 $scope.peopleList = _.sortBy(res.groupingsIn, "name");
                 $scope.filter($scope.peopleList, "pagedItemsPeople", "currentPagePeople", $scope.peopleQuery, true);
 
@@ -87,6 +87,40 @@
             }, function (res) {
                 dataProvider.handleException({ exceptionMessage: JSON.stringify(res, null, 4) }, "feedback/error", "feedback");
             }, $scope.people);//scope.variable
+        };
+
+        //todo:copy
+        function handleSuccessfulOpt(res) {
+            if (_.startsWith(res[0].resultCode, "SUCCESS")) {
+                //$scope.init();
+                $scope.searchForMemberships();
+            }
+        }
+
+        //todo:copy
+        function handleUnsuccessfulOpt(res) {
+            console.log("Error opting into grouping: " + res.statusCode);
+            $scope.searchForMemberships();
+        }
+
+
+       /* todo:copy from membership.controller.js*/
+        /**
+         * Adds the user to the exclude group of the grouping selected. Sends back an alert saying if it failed.
+         * @param {number} currentPage - the current page within the table
+         * @param {number} indexClicked - the index of the grouping clicked by the user
+         */
+        $scope.optOutSelectUser = function (currentPage, indexClicked) {
+            console.log("hhhhhhhhhhh currentPage: " + currentPage);
+            console.log("hhhhhhhhhhh indexClicked: " + indexClicked);
+            console.log("hhhhhhhhhhh $scope.pagedItemsPeople: " , $scope.pagedItemsPeople);
+            console.log("hhhhhhhhhhh $scope.people: " , $scope.people);
+            const groupingPath = $scope.pagedItemsPeople[currentPage][indexClicked].path;
+            console.log("jiaqi12345: " + groupingPath);
+            $scope.loading = true;
+            //groupingsService.optOut(groupingPath, handleSuccessfulOpt, handleUnsuccessfulOpt, $scope.people);
+            //groupingsService.optOutSelectUser(groupingPath, function(res){console.log("ttttttttt res: ", res);}, function(res){console.log("uuuuuuuuuuu res: ", res);}, $scope.people);
+            groupingsService.optOutSelectUser(groupingPath, handleSuccessfulOpt, handleUnsuccessfulOpt, $scope.people);
         };
 
 

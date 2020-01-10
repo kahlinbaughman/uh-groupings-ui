@@ -33,6 +33,8 @@
                 $scope.membershipsList = _.sortBy(res.groupingsIn, "name");
                 $scope.filter($scope.membershipsList, "pagedItemsMemberships", "currentPageMemberships", $scope.membersQuery, true);
 
+               // console.log($scope.membershipsList);
+
                 $scope.optInList = _.sortBy(res.groupingsToOptInTo, "name");
                 $scope.filter($scope.optInList, "pagedItemsOptInList", "currentPageOptIn", $scope.optInQuery, true);
 
@@ -74,6 +76,10 @@
          */
         $scope.optOut = function (currentPage, indexClicked) {
             const groupingPath = $scope.pagedItemsMemberships[currentPage][indexClicked].path;
+            console.log("jiaqiiiiiiiiiiiiiiiii: " + groupingPath);
+            console.log(currentPage);
+            console.log(indexClicked);
+            console.log($scope.pagedItemsMemberships[currentPage][indexClicked]);
             $scope.loading = true;
             groupingsService.optOut(groupingPath, handleSuccessfulOpt, handleUnsuccessfulOpt);
         };

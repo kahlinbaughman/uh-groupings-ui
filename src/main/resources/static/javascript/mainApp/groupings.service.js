@@ -227,8 +227,23 @@
              */
             optOut(path, onSuccess, onError) {
                 let endpoint = BASE_URL + path + "/optOut";
+                console.log("jiaqiiiiiiiiiiiiiiiii0000000000: " + path);
+                console.log("jiaqiiiiiiiiiiiiiiiii0000000000: " + endpoint);
                 dataProvider.updateData(onSuccess, onError, endpoint);
             },
+
+
+            /*todo:copy*/
+
+            optOutSelectUser: function (path, onSuccess, onError, username) {
+                let endpoint = BASE_URL + path + "/" +username +"/optOut";
+                console.log("jiaqiiiiiiiiiiiiiiiii0000000000: " + path);
+                console.log("jiaqiiiiiiiiiiiiiiiii0000000000: " + endpoint);
+                console.log("jiaqiiiiiiiiiiiiiiiii0000000000: " + username);
+
+                dataProvider.updateData(onSuccess, onError, endpoint);
+            },
+
 
             /**
              * Opts a user into a grouping.
