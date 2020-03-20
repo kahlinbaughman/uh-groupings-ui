@@ -136,8 +136,12 @@
                 <!-- Manage People -->
                 <div class="tab-pane fade" id="manage-people" role="tab">
 
-                    <div class="row">
-                        <!--<div class="col-lg-7">-->
+                    <div class="row m-auto pt-3 pb-3">
+                        <div class="col-lg-9 col-md-8 col-12 p-0">
+                            <h2 class="card-title mt-md-1 mt-0 mb-1">people</h2>
+                        </div>
+                        <div class="row">
+                            <!--<div class="col-lg-7">-->
                             <form ng-submit="searchForMemberships()">
                                 <div class="input-group">
                                     <input name="Search People" class="form-control" type="text"
@@ -148,18 +152,7 @@
                                     </div>
                                 </div>
                             </form>
-                        <!--</div>-->
-                    </div>
-
-                    <div class="row m-auto pt-3 pb-3">
-                        <div class="col-lg-9 col-md-8 col-12 p-0">
-                            <h2 class="card-title mt-md-1 mt-0 mb-1">people</h2>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-12 p-0">
-                            <input class="form-control" placeholder="Filter people..." type="text"
-                                   title="Filter people"
-                                   ng-model="peopleQuery"
-                                   ng-change="filter(peopleList, 'pagedItemsPeople', 'currentPagePeople', peopleQuery, true)"/>
+                            <!--</div>-->
                         </div>
                     </div>
                     <div class="table-responsive-sm">
@@ -167,22 +160,22 @@
                             <thead>
                             <tr>
                                 <th ng-click="sortBy('peopleList', 'pagedItemsPeople', 'name')" class="clickable">
-                                    Person Name
+                                    Grouping
                                     <i class="fa sort-icon"
                                        ng-show="columnSort.peopleList.property === 'name' || !columnSort.peopleList"
                                        ng-class="{ reverse: columnSort.peopleList.reverse }"></i>
                                 <th ng-click="sortBy('peopleList', 'pagedItemsPeople', 'uuid')" class="clickable">
-                                    UH Number
-                                    <i class="fa sort-icon" ng-show="columnSort.peopleList.property === 'uuid'"
-                                       ng-class="{ reverse: columnSort.peopleList.reverse }"></i>
+                                    Owner?
                                 </th>
                                 <th ng-click="sortBy('peopleList', 'pagedItemsPeople', 'username')"
                                     class="clickable">
-                                    UH Username
-                                    <i class="fa sort-icon" ng-show="columnSort.peopleList.property === 'username'"
-                                       ng-class="{ reverse: columnSort.peopleList.reverse }"></i>
+                                    Basis?
                                 </th>
-                                <th class="delete" scope="col">
+                                <th>
+                                    Include?
+                                </th>
+                                <th>
+                                    Exclude?
                                 </th>
                             </tr>
                             </thead>
@@ -214,15 +207,12 @@
                             </tbody>
                         </table>
                     </div>
-
                     <div class="row">
                         <div class="col-lg-5">
                             <div th:replace="fragments/pagination :: pagination(currentPage='currentPageAdmins', pagedItems='pagedItemsAdmins')"></div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
         <div ng-show="showGrouping">
