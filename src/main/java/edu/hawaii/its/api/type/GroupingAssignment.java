@@ -1,6 +1,8 @@
 package edu.hawaii.its.api.type;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GroupingAssignment {
 
@@ -10,6 +12,7 @@ public class GroupingAssignment {
     private List<Grouping> groupingsOptedInTo;
     private List<Grouping> groupingsToOptOutOf;
     private List<Grouping> groupingsToOptInTo;
+    private Map<String, Boolean> inBasis = new HashMap<>();
 
     public List<Grouping> getGroupingsIn() {
         return groupingsIn;
@@ -59,4 +62,11 @@ public class GroupingAssignment {
         this.groupingsOptedInTo = groupingsOptedInTo;
     }
 
+    public void addInBasis(String key, Boolean value) {
+        inBasis.put(key, value);
+    }
+
+    public boolean isInBasis (String key) {
+        return inBasis.get(key);
+    }
 }

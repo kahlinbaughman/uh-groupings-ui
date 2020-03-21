@@ -220,6 +220,12 @@ public class TestGroupingsRestController {
     }
 
     @Test
+    public void basisTest() throws Exception {
+        GroupingsServiceResult test = mapGSR(API_BASE + "members/kahlin/groupings");
+        System.out.println(test);
+    }
+
+    @Test
     @WithMockUhUser(username = "iamtst01")
     public void assignAndRemoveOwnershipTest() throws Exception {
 

@@ -79,21 +79,32 @@
                 $scope.filter($scope.membershipsList, "pagedItemsMemberships", "currentPageMemberships", $scope.membersQuery, true);
 
                 /!*todo:fix of real data*/
-
                 $scope.peopleList = _.sortBy(res.groupingsIn, "name");
+                let arr = JSON.parse(res.jsonMap);
+                console.log(arr['jiaqil-complex']);
                 $scope.filter($scope.peopleList, "pagedItemsPeople", "currentPagePeople", $scope.peopleQuery, true);
                 _.forEach($scope.pagedItemsPeople[$scope.currentPagePeople], function (group) {
-                    $scope.selectedGrouping = group;
-                    $scope.getGroupingInformation();
-                    console.log(_.some($scope.groupingBasis, { uid: $scope.people}));
+                    // console.log(res);
+                    // if (group.name === "jiaqil-complex") {
+                    //     $scope.selectedGrouping = group;
+                    //     console.log($scope.selectedGrouping.name);
+                    //     $scope.getGroupingInformation();
+                    //
+                    //     setTimeout(function () {
+                    //         console.log($scope.groupingBasis);
+                    //         console.log(_.some($scope.groupingBasis, { username: "echunfat"}));
+                    //     }, 5000);
+                    // }
+                    // _.some($scope.groupingBasis, { uid: $scope.people})
                 });
+                console.log("after foreach");
                 // l in pagedItemsPeople[currentPagePeople]
                 $scope.loading = false;
             }, function (res) {
                 dataProvider.handleException({ exceptionMessage: JSON.stringify(res, null, 4) }, "feedback/error", "feedback");
             }, $scope.people);//scope.variable
 
-            console.log("Before foreach");
+            // console.log("Before foreach");
             // _.forEach($scope.peopleList, function (group) {
             //     console.log(group.name);
             // })
