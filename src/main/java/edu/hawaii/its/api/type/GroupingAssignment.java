@@ -12,7 +12,6 @@ public class GroupingAssignment {
     private List<Grouping> groupingsOptedInTo;
     private List<Grouping> groupingsToOptOutOf;
     private List<Grouping> groupingsToOptInTo;
-    private Map<String, Boolean> inBasis = new HashMap<>();
 
     public List<Grouping> getGroupingsIn() {
         return groupingsIn;
@@ -60,13 +59,5 @@ public class GroupingAssignment {
 
     public void setGroupingsOptedInTo(List<Grouping> groupingsOptedInTo) {
         this.groupingsOptedInTo = groupingsOptedInTo;
-    }
-
-    public void addInBasis(String key, Boolean value) {
-        inBasis.put(key, value);
-    }
-
-    public boolean isInBasis (String key) {
-        return inBasis.get(key);
     }
 }

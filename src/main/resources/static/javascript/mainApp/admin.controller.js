@@ -81,9 +81,10 @@
                 /!*todo:fix of real data*/
                 $scope.peopleList = _.sortBy(res.groupingsIn, "name");
                 let arr = JSON.parse(res.jsonMap);
-                console.log(arr['jiaqil-complex']);
                 $scope.filter($scope.peopleList, "pagedItemsPeople", "currentPagePeople", $scope.peopleQuery, true);
                 _.forEach($scope.pagedItemsPeople[$scope.currentPagePeople], function (group) {
+                    group["inBasis"] = arr[group.name];
+                    console.log("Name: " + group.name + " is in basis? " + group.inBasis);
                     // console.log(res);
                     // if (group.name === "jiaqil-complex") {
                     //     $scope.selectedGrouping = group;
@@ -97,7 +98,8 @@
                     // }
                     // _.some($scope.groupingBasis, { uid: $scope.people})
                 });
-                console.log("after foreach");
+                console.log("Printing the res:");
+                // console.log(res);
                 // l in pagedItemsPeople[currentPagePeople]
                 $scope.loading = false;
             }, function (res) {

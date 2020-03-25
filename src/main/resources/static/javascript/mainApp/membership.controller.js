@@ -108,4 +108,3 @@
     UHGroupingsApp.controller("MembershipJsController", MembershipJsController);
 
 }());
-//})();
