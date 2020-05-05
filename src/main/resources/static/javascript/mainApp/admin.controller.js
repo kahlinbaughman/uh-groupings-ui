@@ -98,10 +98,10 @@
             $scope.selectedGroupings = [];
             _.forEach($scope.pagedItemsPerson[$scope.currentPagePerson], function (grouping) {
                 if(grouping.isSelected) {
-                    if(grouping.inOwner){
+                    if(grouping.inOwner) {
                         $scope.selectedGroupings.push(grouping.path + ":owners");
                     }
-                    if(grouping.inInclude){
+                    if(grouping.inInclude) {
                         $scope.selectedGroupings.push(grouping.path + ":include")
                     }
                 }
